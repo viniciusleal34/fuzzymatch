@@ -21,6 +21,7 @@ try {
   process.exit(1);
 }
 
+
 const auth = new google.auth.GoogleAuth({
   credentials,
   scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
