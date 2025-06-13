@@ -13,6 +13,9 @@ if (!process.env.GOOGLE_CREDENTIALS) {
 let credentials;
 try {
   credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+  if (credentials.private_key) {
+    credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
+  }
 } catch (error) {
   console.error('Erro ao fazer parse de GOOGLE_CREDENTIALS:', error);
   process.exit(1);
