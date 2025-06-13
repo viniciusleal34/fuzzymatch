@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 const auth = new google.auth.GoogleAuth({
-  credentials: keys,
+  credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS),
   scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
 });
 
