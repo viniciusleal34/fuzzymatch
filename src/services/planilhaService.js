@@ -28,12 +28,23 @@ async function processaPergunta(fraseDoUsuario) {
 
   const relacionados = rows.filter(row => {
     const palavrasChave = row[1]?.toLowerCase().split(',').map(p => p.trim()) || [];
-    const palavrasFrase = fraseMinuscula.split(/\s+/);
-    
-    return palavrasChave.some(palavra =>
-      palavrasFrase.some(palavraFrase => distance(palavraFrase, palavra) <= 2)
+    const fraseSemPontuacao = fraseMinuscula.replace(/[^\w\s]/gi, '');
+    const palavrasFrase = fraseSemPontuacao.split(/\s+/);
+  
+    const nGrams = [];
+    const maxN = 3; 
+  
+    for (let n = 1; n <= maxN; n++) {
+      for (let i = 0; i <= palavrasFrase.length - n; i++) {
+        nGrams.push(palavrasFrase.slice(i, i + n).join(' '));
+      }
+    }
+  
+    return palavrasChave.some(chave =>
+      nGrams.some(bloco => distance(bloco, chave) <= 2)
     );
   });
+  
 
   if (relacionados.length) {
     return {
