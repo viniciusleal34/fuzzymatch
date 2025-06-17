@@ -12,7 +12,7 @@ router.post('/chat', async (req, res) => {
 
     if (payloud.tipo === 'resposta_direta') {
       return res.json({
-        text: `❓ *${payloud.dados.pergunta}*\n\n✅ ${payloud.dados.resposta}\n\n❓ *Deseja saber mais alguma coisa?*`
+        text: `👉 *${payloud.dados.pergunta}*\n\n✅ ${payloud.dados.resposta}\n\n❓ *Deseja saber mais alguma coisa?*`
       });
     }
 
