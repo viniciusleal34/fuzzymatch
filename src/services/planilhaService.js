@@ -28,7 +28,11 @@ async function processaPergunta(fraseDoUsuario) {
 
   const relacionados = rows.filter(row => {
     const palavrasChave = row[1]?.toLowerCase().split(',').map(p => p.trim()) || [];
-    return palavrasChave.some(palavra => distance(fraseMinuscula, palavra) <= 2);
+    const palavrasFrase = fraseMinuscula.split(/\s+/);
+    
+    return palavrasChave.some(palavra =>
+      palavrasFrase.some(palavraFrase => distance(palavraFrase, palavra) <= 2)
+    );
   });
 
   if (relacionados.length) {
